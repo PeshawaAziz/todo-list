@@ -1,5 +1,6 @@
 package db;
 
+import db.exception.EntityNotFoundException;
 import java.util.ArrayList;
 
 public class Database {
@@ -17,8 +18,7 @@ public class Database {
             if (entity.id == id)
                 return entity;
         }
-        // TODO Throw EntityNotFoundException
-        return null;
+        throw new EntityNotFoundException();
     }
 
     public static void delete(int id) {
