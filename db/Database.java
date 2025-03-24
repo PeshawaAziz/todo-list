@@ -12,8 +12,13 @@ public class Database {
         entities.add(e);
     }
 
-    public static void get(int id) {
-
+    public static Entity get(int id) {
+        for (Entity entity : entities) {
+            if (entity.id == id)
+                return entity;
+        }
+        // TODO Throw EntityNotFoundException
+        return null;
     }
 
     public static void delete(int id) {
