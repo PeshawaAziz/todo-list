@@ -22,7 +22,12 @@ public class Database {
     }
 
     public static void delete(int id) {
-
+        for (Entity entity : entities) {
+            if (entity.id == id)
+                if (entities.remove(entity))
+                    return;
+        }
+        throw new EntityNotFoundException();
     }
 
     public static void update(Entity e) {
