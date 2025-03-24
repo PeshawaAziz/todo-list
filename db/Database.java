@@ -31,6 +31,14 @@ public class Database {
     }
 
     public static void update(Entity e) {
-
+        int i = 0;
+        for (Entity entity : entities) {
+            if (entity.id == e.id) {
+                entities.set(i, e);
+                return;
+            }
+            i++;
+        }
+        throw new EntityNotFoundException();
     }
 }
