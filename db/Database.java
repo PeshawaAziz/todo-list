@@ -3,21 +3,24 @@ package db;
 import java.util.ArrayList;
 
 public class Database {
-    private ArrayList<Entity> entities;
+    private static ArrayList<Entity> entities = new ArrayList<>();
+    private static int totalEntitiesCount = 0;
 
-    public void add(Entity e) {
+    public static void add(Entity e) {
+        e.id = totalEntitiesCount;
+        totalEntitiesCount++;
+        entities.add(e);
+    }
+
+    public static void get(int id) {
 
     }
 
-    public void get(int id) {
+    public static void delete(int id) {
 
     }
 
-    public void delete(int id) {
-
-    }
-
-    public void update(Entity e) {
+    public static void update(Entity e) {
 
     }
 }
