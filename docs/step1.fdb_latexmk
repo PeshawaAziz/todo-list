@@ -1,0 +1,19 @@
+# Fdb version 4
+["pdflatex"] 1742896701.39258 "/home/shadow/DEV/uni/ap/todo-list/docs/step1.tex" "step1.pdf" "step1" 1742896701.85974 2
+  "/home/shadow/.texlive/texmf-var/web2c/pdftex/pdflatex.fmt" 1742894456 8555710 6aab18bd8bacdba3075944abc6cdcabb ""
+  "/home/shadow/DEV/uni/ap/todo-list/docs/step1.tex" 1742896700.26472 5654 7f73256b4d9768d1e060e441fdfe4afc ""
+  "/usr/share/texmf-dist/tex/latex/base/article.cls" 1736268207 20144 147463a6a579f4597269ef9565205cfe ""
+  "/usr/share/texmf-dist/tex/latex/base/size10.clo" 1736268207 8448 dbc0dbf4156c0bb9ba01a1c685d3bad0 ""
+  "/usr/share/texmf-dist/tex/latex/fontspec/fontspec.sty" 1736268207 3484 ff877041166391bc5ca8a1e45614784e ""
+  "/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def" 1736268207 30006 3d512c0edd558928ddea1690180ef77e ""
+  "/usr/share/texmf-dist/tex/latex/l3kernel/expl3.sty" 1736268207 6565 10e89ed128ccd59431746bbdd82129fc ""
+  "/usr/share/texmf-dist/tex/latex/l3packages/xparse/xparse.sty" 1736268207 9327 11bedad2ac38f92e405a38ed18489a03 ""
+  "/usr/share/texmf-dist/tex/xelatex/xepersian/xepersian.sty" 1736268207 54584 5f8b3a150aaee0d6ce03261f7ffd46a5 ""
+  "/usr/share/texmf-dist/web2c/texmf.cnf" 1736268207 41588 b43d3e860a4f94167ee1e725ff526a72 ""
+  "step1.aux" 1742896701.38807 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "step1.tex" 1742896700.26472 5654 7f73256b4d9768d1e060e441fdfe4afc ""
+  (generated)
+  "step1.aux"
+  "step1.log"
+  "step1.pdf"
+  (rewritten before read)
