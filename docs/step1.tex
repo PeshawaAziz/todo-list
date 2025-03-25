@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{xepersian}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+tabsize = 4, %% set tab space width
+showstringspaces = false, %% prevent space marking in strings, string is defined as the text that is generally printed directly to the console
+commentstyle = \color{green}, %% set comment color
+keywordstyle = \color{blue}, %% set keyword color
+stringstyle = \color{red}, %% set string color
+rulecolor = \color{black}, %% set frame color to avoid being affected by text color
+basicstyle = \small \ttfamily , %% set listing font and size
+breaklines = true, %% enable line breaking
+}
+
+\settextfont{XB Yas}
+
+\title{\textbf{گزارش‌کار پروژۀ عید - برنامه‌سازی پیشرفته (جاوا)}\vspace{1cm}\\پاسخ سوالات قدم اول}
+\author{\textbf{پیشوا آزیز - \lr{40313003}}}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\vspace{2cm}
+
+\section*{پاسخ سوال ۰}
+لینک ریپازیتوری گیت‌هاب پروژه: \lr{https://github.com/PeshawaAziz/todo-list}
+
+\section*{پاسخ سوال ۱}
+تفاوت \lr{checked} و \lr{un-checked} اکسپشن‌ها در نحوۀ هندل کردن آن‌هاست؛ به‌طوری‌که اکسپشن‌های \lr{checked} حتماً باید توسط بلوک \lr{\lstinline|try catch|} هندل شوند. همچنین، متدی که احتمال رخ‌ دادن اکسپشن \lr{checked} در آن وجود داشته باشد باید توسط کلمۀ کلیدی \lr{\lstinline|throws|} مشخص شود. این نوع از اکسپشن‌ها در هنگام کامپایل کردن کد بررسی می‌شوند، به همین دلیل به صورت صریح نیاز به هندل شدن دارند، درحالی که اکسپشن‌های \lr{un-checked} در هنگام اجرا شدن برنامه بررسی شده و لزوماً نیاز به هندل شدن ندارند.
+
+در اینجا، مطابق با خواستۀ پروژه، اکسپشن \lr{\lstinline|EntityNotFoundException|} می‌بایست از نوع \lr{un-checked} می‌بود. در جاوا اکسپشن‌هایی که از کلاس \lr{\lstinline|Exception|} ارث‌بری می‌کنند، از نوع \lr{checked} و اکسپشن‌هایی که از کلاس \lr{\lstinline|RuntimeException|} ارث‌بری می‌کنند از نوع \lr{un-checked} هستند. لذا اکسپشن مورد نظر را زیرکلاسی از کلاس \lr{\lstinline|RuntimeException|} قرار دادم.
+
+\section*{پاسخ سوال ۲}
+در ابتدای متد \lr{\lstinline|main|} در کلاس \lr{\lstinline|Main|}، سه آبجکت از نوع \lr{\lstinline|Human|} تعریف شده و در خط‌های بعدی به دیتابیس اضافه شده‌اند. در این‌صورت، چون کلاس \lr{\lstinline|Human|} از \lr{\lstinline|Entity|} ارث‌بری می‌کند، کامپایلر بدون مشکل این آبجکت‌ها را \lr{upcast} کرده و آن‌ها را به صورت \lr{\lstinline|Entity|} ذخیره می‌کند. (\lr{Implicit casting})
+
+حال، در صورتی که لازم باشد این \lr{\lstinline|Entity|}ها را دوباره به صورت \lr{\lstinline|Human|} ذخیره کنیم، کامپایلر بدون مشکل این \lr{downcast} را انجام می‌دهد. دلیل این که اکسپشن \lr{\lstinline|ClassCastException|} در این مورد به‌وجود نمی‌آید این است که آبجکت‌های ذخیره‌شده به صورت \lr{\lstinline|Entity|} در دیتابیس در اصل به صورت رفرنس‌هایی از آبجکت‌های \lr{\lstinline|Human|} هستند و کامپایلر بدون مشکل \lr{cast} ذکرشده را انجام می‌دهد.
+
+\section*{پاسخ سوال ۳}
+وقتی که آبجکت‌های \lr{\lstinline|Human|} را تعریف می‌کنیم، در اصل هر یک از آن‌ها (\lr{\lstinline|humans[0]|} و …) یک رفرنس به آبجکتی از نوع \lr{\lstinline|Human|} در مموری است و با تغییر دادن آن، آبجکت مورد نظر در مموری دچار تغییر می‌شود. حال با اضافه کردن هر کدام از این آبجکت‌ها به دیتابیس، به دلیل این که \lr{\lstinline|id|} آن‌ها -از طریق رفرنس- آپدیت شده و تغییر می‌کند، هر جایی که از این رفرنس استفاده شده باشد، آن هم تغییر می‌کند. لذا \lr{\lstinline|id|} آبجکت \lr{\lstinline|humans[0]|} با اضافه شدن به دیتابیس، تغییر می‌کند.
+
+\section*{پاسخ سوال ۴}
+باز هم دلیل این رخ‌داد به رفرنس‌ها و نحوۀ عملکرد آن‌ها در جاوا برمی‌گردد. با اضافه کردن آبجکت \lr{\lstinline|ali|} به دیتابیس، در اصل یک رفرنس به آن در مموری، در دیتابیس ذخیره می‌شود. حال هر گونه تغییر در آن، موجب تغییر در آبجکت ذخیره‌شده در مموری می‌شود. بعد با ایجاد یک آبجکت جدید با نام \lr{\lstinline|aliFromTheDatabase|} و فراخوانی متد \lr{\lstinline|Database.get|}، چیزی که توسط متد نام‌برده برگشت داده می‌شود، باز یک رفرنس به آبجکت قبلی است. لذا تغییر انجام‌شده در آن یعنی مقدار جدید \lr{\lstinline|ali.name|} که برابر با \lr{\lstinline|aliFromTheDatabase.name|} است، مشاهده می‌شود.
+
+\end{document}
