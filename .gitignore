@@ -28,3 +28,6 @@ replay_pid*
 *.fdb_latexmk
 *.fls
 *.log
+
+# example package
+example/
