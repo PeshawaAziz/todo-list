@@ -31,3 +31,6 @@ replay_pid*
 
 # example package
 example/
+
+# temporary ignore
+Main.java
