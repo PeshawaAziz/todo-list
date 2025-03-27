@@ -8,8 +8,7 @@ public abstract class Entity implements Cloneable {
         try {
             return (Entity) super.clone();
         } catch (CloneNotSupportedException e) {
-            System.out.println(e.getMessage());
+            throw new AssertionError("Cloning not supported", e);
         }
-        return null;
     }
 }
