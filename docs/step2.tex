@@ -7,14 +7,14 @@
 \usepackage[margin=3.6cm]{geometry}
 
 \lstset{
-tabsize = 4, %% set tab space width
-showstringspaces = false, %% prevent space marking in strings, string is defined as the text that is generally printed directly to the console
-commentstyle = \color{green}, %% set comment color
-keywordstyle = \color{blue}, %% set keyword color
-stringstyle = \color{red}, %% set string color
-rulecolor = \color{black}, %% set frame color to avoid being affected by text color
-basicstyle = \small \ttfamily , %% set listing font and size
-breaklines = true, %% enable line breaking
+    tabsize = 4,
+    showstringspaces = false,
+    commentstyle = \color{green},
+    keywordstyle = \color{blue},
+    stringstyle = \color{red},
+    rulecolor = \color{black},
+    basicstyle = \small \ttfamily,
+    breaklines = true,
 }
 
 \settextfont{XB Yas}
@@ -31,8 +31,8 @@ breaklines = true, %% enable line breaking
 
 \section*{پاسخ سوال ۱}
 
-\lr{Shallow copy} و \lr{Deep copy} به مفاهیم مربوط به کپی کردن آبجکت‌ها برمی‌گردد. وقتی سعی می‌کنیم آبجکتی را کپی کنیم و آن‌را در جایی دیگر ذخیره کنیم باید در مورد این موضوع یعنی نوع کپی کردن آگاهی داشته باشیم.
-\lr{Shallow copy} را با یک مثال بهتر متوجه می‌شویم:
+Shallow copy و Deep copy به مفاهیم مربوط به کپی کردن آبجکت‌ها برمی‌گردد. وقتی سعی می‌کنیم آبجکتی را کپی کنیم و آن‌را در جایی دیگر ذخیره کنیم باید در مورد این موضوع یعنی نوع کپی کردن آگاهی داشته باشیم.
+Shallow copy را با یک مثال بهتر متوجه می‌شویم:
 
 فرض کنید کلاسی با نام \lr{\lstinline{Person}} داریم که در آن یک فیلد از نوع \lr{\lstinline{Address}} که آن هم خود یک کلاس است، وجود دارد.
 
@@ -41,7 +41,7 @@ breaklines = true, %% enable line breaking
 class Address {
     public String city;
     public String country;
-    
+
     public Address(String city, String country) {
         this.city = city;
         this.country = country;
@@ -58,13 +58,13 @@ class Person {
     }
 
     public Person copy() {
-        return new Person(this.name, this.age, this.address);
+        return new Person(this.name, this.address);
     }
 }
 \end{lstlisting}
 \end{latin}
 
-شاید این‌گونه به نظر برسد که متد \lr{\lstinline{copy}} می‌تواند آبجکتی جدید از نوع \lr{\lstinline{Person}} بازگرداند و مشکلی در پیاده‌سازی آن وجود ندارد. در حالی که با تست کردن عملکرد آن می‌توان متوجه شد که مشکل آن چیست.  حال با ساختن یک آبجکت از نوع \lr{\lstinline{Person}} و کپی کردن آن در آبجکتی دیگر با استفاده از متد \lr{\lstinline{copy}} کدی مانند زیر خواهیم داشت:
+شاید این‌گونه به نظر برسد که متد \lr{\lstinline{copy}} می‌تواند آبجکتی جدید از نوع \lr{\lstinline{Person}} بازگرداند و مشکلی در پیاده‌سازی آن وجود ندارد. در حالی که با تست کردن عملکرد آن می‌توان متوجه شد که مشکل آن چیست. حال با ساختن یک آبجکت از نوع \lr{\lstinline{Person}} و کپی کردن آن در آبجکتی دیگر با استفاده از متد \lr{\lstinline{copy}} کدی مانند زیر خواهیم داشت:
 
 \begin{latin}
 \begin{lstlisting}[language = Java, firstnumber = last, escapeinside={(*@}{@*)}]
@@ -82,11 +82,11 @@ public class Main {
 \end{lstlisting}
 \end{latin}
 
-با مشاهدۀ خروجی این کد، می‌توان فهمید تغییری که در یکی از فیلدهای \lr{\lstinline{person2}} انجام شد، باعث همین تغییر در \lr{\lstinline{person1}} نیز شده است. البته این فیلد از نوع \lr{\lstinline{Address}} بوده و به دلیل این که رفرنس آن از \lr{\lstinline{person1}} به \lr{\lstinline{person2}} کپی شده است، تغییرات مشابهی داشته‌اند؛ وگرنه تغییری که در \lr{\lstinline{person2.name}} اعمال شده است، موجب تغییر در \lr{\lstinline{person1.name}} نشده است، چون فیلد \lr{\lstinline{name}} از نوع \lr{primitive} است. لذا آبجکت‌ها و رفرنس‌های داخلی هر آبجکت همان‌گونه باقی مانده‌اند و نسخه‌های جدیدی از آن‌ها به‌وجود نیامده‌است. این نوع کپی کردن که در آن آبجکت کپی شده، با همان رفرنس‌های داخلی قبلی کپی می‌شود، \lr{Shallow copy} می‌باشد.
+با مشاهدۀ خروجی این کد، می‌توان فهمید تغییری که در یکی از فیلدهای \lr{\lstinline{person2}} انجام شد، باعث همین تغییر در \lr{\lstinline{person1}} نیز شده است. البته این فیلد از نوع \lr{\lstinline{Address}} بوده و به دلیل این که رفرنس آن از \lr{\lstinline{person1}} به \lr{\lstinline{person2}} کپی شده است، تغییرات یکسانی داشته‌اند؛ وگرنه تغییری که در \lr{\lstinline{person2.name}} اعمال شده است، موجب تغییر در \lr{\lstinline{person1.name}} نشده است، چون فیلد \lr{name} از نوع \lr{primitive} است. لذا آبجکت‌ها و رفرنس‌های داخلی هر آبجکت همان‌گونه باقی مانده‌اند و نسخه‌های جدیدی از آن‌ها به‌وجود نیامده است. این نوع کپی کردن که در آن آبجکت کپی‌شده، با همان رفرنس‌های داخلی قبلی کپی می‌شود، \lr{Shallow copy} می‌باشد.
 
 این موضوع در این‌جا، با توجه به مشکلی که در پایان قدم اول پروژه مشاهده شد، در اصل نوعی عملکرد نامطلوب دیتابیس است، لازم است تا متد مربوط به کپی کردن آبجکت‌ها به گونه‌ای صحیح پیاده‌سازی شود تا رفرنس‌هایی که در آبجکت‌ها مورد استفاده قرار گرفته است، متمایز از هم باشند و به یک فضای واحد در حافظه اشاره نکنند.
 
-با این توصیف، می‌توان پیش‌بینی کرد که \lr{Deep copy} چه تمایزاتی دارد. \lr{Deep copy} به نوعی از کپی کردن آبجکت‌ها اشاره می‌کند که در آن، از رفرنس‌ها و آبجکت‌های داخلی هم کپی گرفته می‌شود و به‌جای هر کدام از آن‌ها، نسخه‌های جدیدی در آبجکت کپی شده قرار می‌گیرند. برای این منظور می‌توان پیاده‌سازی متد \lr{\lstinline{copy}} را به شیوۀ زیر تغییر داد:
+با این توصیف، می‌توان پیش‌بینی کرد که \lr{Deep copy} چه تمایزاتی دارد. \lr{Deep copy} به نوعی از کپی کردن آبجکت‌ها اشاره می‌کند که در آن، از رفرنس‌ها و آبجکت‌های داخلی هم کپی گرفته می‌شود و به‌جای هر کدام از آن‌ها، نسخه‌های جدیدی در آبجکت کپی‌شده قرار می‌گیرند. برای این منظور می‌توان پیاده‌سازی متد \lr{\lstinline{copy}} را به شیوۀ زیر تغییر داد:
 
 \begin{latin}
 \begin{lstlisting}[language = Java, firstnumber = last, escapeinside={(*@}{@*)}]
@@ -104,7 +104,6 @@ public Person copy() {
 
 در اینجا به‌خاطر یکی از قابلیت‌های جاوا به نام \lr{Covariant return types}، می‌توان نوع خروجی از متد‌ها را تغییر داد، به شرطی که موارد زیر برقرار باشند:
 
-
 \begin{enumerate}
     \item نوع خروجی از متد \lr{override}کننده، باید یک زیرکلاس از نوع خروجی متد \lr{override}شده باشد.
     \item این تغییر سیگنچر فقط برای \lr{reference type}ها پاسخ‌گو است و برای \lr{primitive type}ها امکان‌پذیر نمی‌باشد.
@@ -116,21 +115,20 @@ public Person copy() {
 
 \begin{figure}[h]
 \begin{latin}
-    \centering
-    \includegraphics[width=0.7\textwidth]{../img/screenshot1.png}
+\centering
+\includegraphics[width=0.7\textwidth]{../img/screenshot1.png}
 \end{latin}
-    \caption*{اسکرین‌شات از خروجی کد حین اجرای بخش تست کد}
+\caption*{اسکرین‌شات از خروجی کد حین اجرای بخش تست کد}
 \end{figure}
 
 \section*{پاسخ سوال ۴}
 
-متد \lr{\lstinline{clone}} در جاوا برای ایجاد کپی از یک آبجکت استفاده می‌شود. این متد در کلاس \lr{\lstinline{Object}} تعریف شده است. برای استفاده از آن شرایطی مانند \lr{implement} کردن اینترفیس \lr{\lstinline{Cloneable}} توسط کلاس مورد نظر (برای جلوگیری از اکسپشن مربوط) و \lr{override} کردن متد \lr{\lstinline{clone}} و فراخوانی \lr{\lstinline{super.clone()}} وجود دارد. استفاده از این متد به تنهایی، آبجکت مورد نظر را صرفا \lr{Shallow copy} می‌کند و برای پیاده‌سازی \lr{Deep copy} باید به صورت دستی رفرنس‌های موجود در داخل آبجکت‌ها را کپی کرد.
+متد \lr{\lstinline{clone}} در جاوا برای ایجاد کپی از یک آبجکت استفاده می‌شود. این متد در کلاس \lr{\lstinline{Object}} تعریف شده است. برای استفاده از آن شرایطی مانند \lr{implement} کردن اینترفیس \lr{\lstinline{Cloneable}} توسط کلاس مورد نظر (برای جلوگیری از اکسپشن مربوطه) و \lr{override} کردن متد \lr{\lstinline{clone}} و فراخوانی \lr{\lstinline{super.clone()}} وجود دارد. استفاده از این متد به تنهایی، آبجکت مورد نظر را صرفا \lr{Shallow copy} می‌کند و برای پیاده‌سازی \lr{Deep copy} باید به صورت دستی رفرنس‌های موجود در داخل آبجکت‌ها را کپی کرد.
 
 \section*{پاسخ سوال ۵}
 
-مطابق سورس کد خود جاوا، اینترفیس \lr{\lstinline{Cloneable}} هیچ متدی در تعریف خود ندارد و استفاده از آن برای کلاسی که متد \lr{\lstinline{clone}} را پیاده‌سازی می‌کند صرفاً جنبۀ مارکر دارد و نشان می‌دهد که کلاس ذکرشده از \lr{cloning} پشتیبانی می‌کند.
+مطابق سورس‌کد خود جاوا، اینترفیس \lr{\lstinline{Cloneable}} هیچ متدی در تعریف خود ندارد و استفاده از آن برای کلاسی که متد \lr{\lstinline{clone}} را پیاده‌سازی می‌کند صرفاً جنبۀ مارکر دارد و نشان می‌دهد که کلاس ذکرشده از \lr{cloning} پشتیبانی می‌کند.
 
 از طرفی ضرورت استفاده از این اینترفیس می‌تواند به مفاهیم \lr{clean code} به‌خصوص واضح‌تر شدن و جلوگیری از عملکرد غیرمنتظره و نامطلوب مربوط شود.
-
 
 \end{document}
