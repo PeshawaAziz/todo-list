@@ -2,10 +2,12 @@ package db;
 
 import db.exception.EntityNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Database {
     private static ArrayList<Entity> entities = new ArrayList<>();
     private static int totalEntitiesCount = 0;
+    private static HashMap<Integer, Validator> validators;
 
     public static void add(Entity e) {
         e.id = totalEntitiesCount;
@@ -43,5 +45,12 @@ public class Database {
             i++;
         }
         throw new EntityNotFoundException(e.id);
+    }
+
+    public static void registerValidator(int entityCode, Validator validator) {
+        if (validators.containsKey(entityCode))
+            throw new IllegalArgumentException("The entity code already exists in the validators.");
+        else
+            validators.put(entityCode, validator);
     }
 }
