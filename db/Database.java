@@ -1,6 +1,7 @@
 package db;
 
 import db.exception.EntityNotFoundException;
+import db.exception.InvalidEntityException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -9,7 +10,10 @@ public class Database {
     private static int totalEntitiesCount = 0;
     private static HashMap<Integer, Validator> validators;
 
-    public static void add(Entity e) {
+    public static void add(Entity e) throws InvalidEntityException {
+        Validator validator = validators.get(e.getEntityCode());
+        validator.validate(e);
+
         e.id = totalEntitiesCount;
         totalEntitiesCount++;
         entities.add(e.clone());
@@ -35,7 +39,10 @@ public class Database {
         throw new EntityNotFoundException(id);
     }
 
-    public static void update(Entity e) {
+    public static void update(Entity e) throws InvalidEntityException {
+        Validator validator = validators.get(e.getEntityCode());
+        validator.validate(e);
+
         int i = 0;
         for (Entity entity : entities) {
             if (entity.id == e.id) {
