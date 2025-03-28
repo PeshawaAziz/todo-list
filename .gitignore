@@ -29,8 +29,3 @@ replay_pid*
 *.fls
 *.log
 
-# example package
-example/
-
-# temporary ignore
-Main.java
