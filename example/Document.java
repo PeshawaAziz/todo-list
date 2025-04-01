@@ -9,7 +9,6 @@ public class Document extends Entity implements Trackable {
 
     public Date creationDate;
     public Date lastModificationDate;
-
     public String content;
 
     public Document(String content) {
@@ -18,7 +17,12 @@ public class Document extends Entity implements Trackable {
 
     @Override
     public Document clone() {
-        return (Document) super.clone();
+        Document cloned = (Document) super.clone();
+
+        cloned.creationDate = (Date) creationDate.clone();
+        cloned.lastModificationDate = (Date) lastModificationDate.clone();
+
+        return cloned;
     }
 
     @Override
