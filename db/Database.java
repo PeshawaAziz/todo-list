@@ -10,13 +10,13 @@ public class Database {
     private static int totalEntitiesCount = 0;
     private static HashMap<Integer, Validator> validators = new HashMap<>();
 
-    public static void add(Entity e) throws InvalidEntityException {
-        Validator validator = validators.get(e.getEntityCode());
-        validator.validate(e);
+    public static void add(Entity entity) throws InvalidEntityException {
+        Validator validator = validators.get(entity.getEntityCode());
+        validator.validate(entity);
 
-        e.id = totalEntitiesCount;
+        entity.id = totalEntitiesCount;
         totalEntitiesCount++;
-        entities.add(e.clone());
+        entities.add(entity.clone());
     }
 
     public static Entity get(int id) {
@@ -39,19 +39,19 @@ public class Database {
         throw new EntityNotFoundException(id);
     }
 
-    public static void update(Entity e) throws InvalidEntityException {
-        Validator validator = validators.get(e.getEntityCode());
-        validator.validate(e);
+    public static void update(Entity entity) throws InvalidEntityException {
+        Validator validator = validators.get(entity.getEntityCode());
+        validator.validate(entity);
 
         int i = 0;
-        for (Entity entity : entities) {
-            if (entity.id == e.id) {
+        for (Entity e : entities) {
+            if (e.id == e.id) {
                 entities.set(i, e.clone());
                 return;
             }
             i++;
         }
-        throw new EntityNotFoundException(e.id);
+        throw new EntityNotFoundException(entity.id);
     }
 
     public static void registerValidator(int entityCode, Validator validator) {
