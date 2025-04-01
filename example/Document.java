@@ -28,6 +28,7 @@ public class Document extends Entity implements Trackable {
 
     @Override
     public void setCreationDate(Date date) {
+        this.creationDate = date;
     }
 
     @Override
@@ -37,6 +38,7 @@ public class Document extends Entity implements Trackable {
 
     @Override
     public void setLastModificationDate(Date date) {
+        this.lastModificationDate = date;
     }
 
     @Override
