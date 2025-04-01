@@ -15,9 +15,7 @@ public class Database {
         Validator validator = validators.get(entity.getEntityCode());
         validator.validate(entity);
 
-        // TODO use the instanceof patten if possible
-        if (entity instanceof Trackable) {
-            Trackable trackable = (Trackable) entity;
+        if (entity instanceof Trackable trackable) {
             Date now = new Date();
 
             trackable.setCreationDate(now);
@@ -53,9 +51,7 @@ public class Database {
         Validator validator = validators.get(entity.getEntityCode());
         validator.validate(entity);
 
-        // TODO use the instanceof patten if possible
-        if (entity instanceof Trackable) {
-            Trackable trackable = (Trackable) entity;
+        if (entity instanceof Trackable trackable) {
 
             trackable.setLastModificationDate(new Date());
         }
