@@ -3,6 +3,7 @@ package db;
 import db.exception.EntityNotFoundException;
 import db.exception.InvalidEntityException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class Database {
@@ -13,6 +14,15 @@ public class Database {
     public static void add(Entity entity) throws InvalidEntityException {
         Validator validator = validators.get(entity.getEntityCode());
         validator.validate(entity);
+
+        // TODO use the instanceof patten if possible
+        if (entity instanceof Trackable) {
+            Trackable trackable = (Trackable) entity;
+            Date now = new Date();
+
+            trackable.setCreationDate(now);
+            trackable.setLastModificationDate(now);
+        }
 
         entity.id = totalEntitiesCount;
         totalEntitiesCount++;
@@ -42,6 +52,13 @@ public class Database {
     public static void update(Entity entity) throws InvalidEntityException {
         Validator validator = validators.get(entity.getEntityCode());
         validator.validate(entity);
+
+        // TODO use the instanceof patten if possible
+        if (entity instanceof Trackable) {
+            Trackable trackable = (Trackable) entity;
+
+            trackable.setLastModificationDate(new Date());
+        }
 
         int i = 0;
         for (Entity e : entities) {
