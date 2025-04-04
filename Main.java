@@ -1,12 +1,9 @@
 import db.Database;
 import db.exception.InvalidEntityException;
 import example.Document;
-import example.DocumentValidator;
 
 public class Main {
     public static void main(String[] args) throws InvalidEntityException {
-        Database.registerValidator(Document.DOCUMENT_ENTITY_CODE, new DocumentValidator());
-
         Document doc = new Document("Eid Eid Eid");
 
         Database.add(doc);
