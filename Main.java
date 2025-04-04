@@ -17,7 +17,7 @@ public class Main {
         System.out.println();
 
         try {
-            Thread.sleep(5_000);
+            Thread.sleep(30_000);
         } catch (InterruptedException e) {
             System.out.println("Sleep interrupted!");
         }
