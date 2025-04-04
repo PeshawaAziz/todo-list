@@ -12,8 +12,12 @@ public class Database {
     private static HashMap<Integer, Validator> validators = new HashMap<>();
 
     public static void add(Entity entity) throws InvalidEntityException {
-        Validator validator = validators.get(entity.getEntityCode());
-        validator.validate(entity);
+        try {
+            Validator validator = validators.get(entity.getEntityCode());
+            validator.validate(entity);
+        } catch (NullPointerException e) {
+            System.out.println("No validator has been registered for class: " + entity.getClass().getName());
+        }
 
         if (entity instanceof Trackable trackable) {
             Date now = new Date();
@@ -48,8 +52,12 @@ public class Database {
     }
 
     public static void update(Entity entity) throws InvalidEntityException {
-        Validator validator = validators.get(entity.getEntityCode());
-        validator.validate(entity);
+        try {
+            Validator validator = validators.get(entity.getEntityCode());
+            validator.validate(entity);
+        } catch (NullPointerException e) {
+            System.out.println("No validator has been registered for class: " + entity.getClass().getName());
+        }
 
         if (entity instanceof Trackable trackable) {
 
