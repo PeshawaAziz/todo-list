@@ -19,7 +19,23 @@ public class Task extends Entity implements Trackable {
         NotStarted, InProgress, Completed
     }
 
-    public Task() {
+    public Task(String title, String description, Status status, Date dueDate) {
+        setTitle(title);
+        setDescription(description);
+        setStatus(status);
+        setDueDate(dueDate);
+    }
+
+    @Override
+    public int getEntityCode() {
+        return TASK_ENTITY_CODE;
+    }
+
+    @Override
+    public Task clone() {
+        Task cloned = (Task) super.clone();
+
+        return cloned;
     }
 
     public String getTitle() {
