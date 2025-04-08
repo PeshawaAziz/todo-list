@@ -9,6 +9,7 @@ public class Task extends Entity implements Trackable {
 
     private Date creationDate;
     private Date lastModificationDate;
+    // TODO make dueDate public (think more man)
     private Date dueDate;
 
     private String title;
