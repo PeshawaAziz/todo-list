@@ -5,6 +5,7 @@ import db.exception.InvalidEntityException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import todo.entity.Step;
 
 public class Database {
     private static ArrayList<Entity> entities = new ArrayList<>();
@@ -36,19 +37,25 @@ public class Database {
             if (entity.id == id)
                 return entity.clone();
         }
+
         throw new EntityNotFoundException(id);
     }
 
     public static void delete(int id) {
         int i = 0;
+        boolean found = false;
         for (Entity entity : entities) {
-            if (entity.id == id) {
+            if (entity.id == id || (entity instanceof Step step && step.getTaskRef() == id)) {
+                found = true;
                 entities.remove(i);
-                return;
             }
             i++;
         }
-        throw new EntityNotFoundException(id);
+
+        if (found)
+            ;
+        else
+            throw new EntityNotFoundException(id);
     }
 
     public static void update(Entity entity) throws InvalidEntityException {
@@ -59,10 +66,8 @@ public class Database {
             System.out.println("No validator has been registered for class: " + entity.getClass().getName());
         }
 
-        if (entity instanceof Trackable trackable) {
-
+        if (entity instanceof Trackable trackable)
             trackable.setLastModificationDate(new Date());
-        }
 
         int i = 0;
         for (Entity e : entities) {
@@ -72,6 +77,7 @@ public class Database {
             }
             i++;
         }
+
         throw new EntityNotFoundException(entity.id);
     }
 
