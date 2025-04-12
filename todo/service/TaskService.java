@@ -81,20 +81,15 @@ public class TaskService {
         }
     }
 
-    public static void updateDueDate(int taskId, Date newDueDate) {
-        try {
-            Entity entity = Database.get(taskId);
+    public static ArrayList<Step> getSteps(int taskId) {
+        ArrayList<Step> stepList = new ArrayList<>();
 
-            if (entity instanceof Task task) {
-                task.setDueDate(newDueDate);
-                Database.update(task);
-            } else {
-                System.out.println("Entity with ID " + taskId + " is not an instance of Task.");
-            }
-        } catch (EntityNotFoundException e) {
-            System.out.println("Task with ID=" + taskId + " not found.");
-        } catch (InvalidEntityException e) {
-            System.out.println("Task with ID=" + taskId + " is invalid.");
+        for (Entity entity : Database.getAll(Step.getCode())) {
+            if (entity instanceof Step step)
+                if (step.getTaskRef() == taskId)
+                    stepList.add(step.clone());
         }
+
+        return stepList;
     }
 }
