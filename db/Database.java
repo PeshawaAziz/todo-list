@@ -97,6 +97,10 @@ public class Database {
             }
         }
 
+        if (entityCode == Task.getCode()) {
+            entityList.sort(Comparator.comparing(entity -> ((Task) entity).getDueDate()));
+        }
+
         return entityList;
     }
 
