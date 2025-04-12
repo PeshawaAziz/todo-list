@@ -99,4 +99,16 @@ public class Database {
 
         return entityList;
     }
+
+    public static ArrayList<Step> getSteps(int taskId) {
+        ArrayList<Step> stepList = new ArrayList<>();
+
+        for (Entity entity : entities) {
+            if (entity instanceof Step step)
+                if (step.getTaskRef() == taskId)
+                    stepList.add(step.clone());
+        }
+
+        return stepList;
+    }
 }
