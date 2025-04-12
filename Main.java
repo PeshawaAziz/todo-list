@@ -45,17 +45,17 @@ public class Main {
                         }
 
                         case "step" -> {
-                            int stepId;
+                            int taskId;
                             String title;
 
                             System.out.println("Task ID: ");
-                            stepId = in.nextInt();
+                            taskId = in.nextInt();
 
                             System.out.println("Title: ");
                             title = in.nextLine();
 
                             // TODO Exception Handling
-                            StepService.saveStep(stepId, title);
+                            StepService.saveStep(taskId, title);
                         }
 
                         default -> {

@@ -13,9 +13,9 @@ public final class Step extends Entity {
         NotStarted, Completed
     }
 
-    public Step(String title, Status status, int taskRef) {
+    public Step(String title, int taskRef) {
         setTitle(title);
-        setStatus(status);
+        setStatus(Status.NotStarted);
         setTaskRef(taskRef);
     }
 

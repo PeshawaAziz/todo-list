@@ -13,7 +13,7 @@ import todo.entity.Task.Status;
 public class TaskService {
     public static void saveTask(String title, String description, Date dueDate) {
         try {
-            Task task = new Task(title, description, Task.Status.NotStarted, dueDate);
+            Task task = new Task(title, description, dueDate);
 
             Database.add(task);
         } catch (InvalidEntityException e) {

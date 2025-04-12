@@ -23,10 +23,10 @@ public class Task extends Entity implements Trackable {
         NotStarted, InProgress, Completed
     }
 
-    public Task(String title, String description, Status status, Date dueDate) {
+    public Task(String title, String description, Date dueDate) {
         setTitle(title);
         setDescription(description);
-        setStatus(status);
+        setStatus(Status.NotStarted);
         setDueDate(dueDate);
     }
 

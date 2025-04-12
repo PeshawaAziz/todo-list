@@ -9,7 +9,7 @@ import todo.entity.Step;
 public class StepService {
     public static void saveStep(int taskRef, String title) {
         try {
-            Entity step = new Step(title, Step.Status.NotStarted, taskRef);
+            Step step = new Step(title, taskRef);
 
             Database.add(step);
         } catch (InvalidEntityException e) {
