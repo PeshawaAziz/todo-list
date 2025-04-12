@@ -3,13 +3,13 @@ package todo.entity;
 import db.Entity;
 import db.Trackable;
 import java.util.Date;
+import todo.service.TaskService;
 
 public class Task extends Entity implements Trackable {
     private static final int TASK_ENTITY_CODE = 0;
 
     private Date creationDate;
     private Date lastModificationDate;
-    // TODO make dueDate public (think more man)
     private Date dueDate;
 
     private String title;
@@ -32,6 +32,10 @@ public class Task extends Entity implements Trackable {
         return TASK_ENTITY_CODE;
     }
 
+    public static int getCode() {
+        return TASK_ENTITY_CODE;
+    }
+
     @Override
     public Task clone() {
         Task cloned = (Task) super.clone();
@@ -42,6 +46,21 @@ public class Task extends Entity implements Trackable {
         cloned.dueDate = (Date) (this.dueDate != null ? this.dueDate.clone() : null);
 
         return cloned;
+    }
+
+    @Override
+    public String toString() {
+        String result = "ID: " + this.id + "\n" +
+                "Title: " + this.title + "\n" +
+                "Due Date: " + this.dueDate + "\n" +
+                "Status: " + this.status + "\n" +
+                "Steps: \n";
+
+        for (Step step : TaskService.getSteps(this.id)) {
+            result += "\t+ " + step + "\n";
+        }
+
+        return result;
     }
 
     public String getTitle() {

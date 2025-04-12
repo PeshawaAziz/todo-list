@@ -20,8 +20,23 @@ public final class Step extends Entity {
     }
 
     @Override
+    public int getEntityCode() {
+        return STEP_ENTITY_CODE;
+    }
+
+    public static int getCode() {
+        return STEP_ENTITY_CODE;
+    }
+
+    @Override
     public Step clone() {
         return (Step) super.clone();
+    }
+
+    @Override
+    public String toString() {
+        return "ID: " + this.id + "\n" +
+                "Status: " + this.status + "\n";
     }
 
     public String getTitle() {
@@ -54,8 +69,4 @@ public final class Step extends Entity {
             this.taskRef = taskRef;
     }
 
-    @Override
-    public int getEntityCode() {
-        return STEP_ENTITY_CODE;
-    }
 }
