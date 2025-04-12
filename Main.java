@@ -48,7 +48,7 @@ public class Main {
                             int stepId;
                             String title;
 
-                            System.out.println("Step ID: ");
+                            System.out.println("Task ID: ");
                             stepId = in.nextInt();
 
                             System.out.println("Title: ");
