@@ -3,9 +3,11 @@ package db;
 import db.exception.EntityNotFoundException;
 import db.exception.InvalidEntityException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import todo.entity.Step;
+import todo.entity.Task;
 
 public class Database {
     private static ArrayList<Entity> entities = new ArrayList<>();
