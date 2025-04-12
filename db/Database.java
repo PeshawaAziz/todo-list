@@ -3,7 +3,6 @@ package db;
 import db.exception.EntityNotFoundException;
 import db.exception.InvalidEntityException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import todo.entity.Step;
@@ -100,7 +99,11 @@ public class Database {
         }
 
         if (entityCode == Task.getCode()) {
-            entityList.sort(Comparator.comparing(entity -> ((Task) entity).getDueDate()));
+            entityList.sort((e1, e2) -> {
+                Task t1 = (Task) e1;
+                Task t2 = (Task) e2;
+                return t1.getDueDate().compareTo(t2.getDueDate());
+            });
         }
 
         return entityList;
