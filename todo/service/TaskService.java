@@ -11,13 +11,18 @@ import todo.entity.Task;
 import todo.entity.Task.Status;
 
 public class TaskService {
-    public static void saveTask(String title, String description, Date dueDate) {
+    public static int saveTask(String title, String description, Date dueDate) {
         try {
             Task task = new Task(title, description, dueDate);
 
             Database.add(task);
+
+            return task.id;
         } catch (InvalidEntityException e) {
-            System.out.println("The provided entity is invalid.");
+            System.out.println("Cannot save task.");
+            System.out.println(e.getMessage());
+
+            return -1;
         }
     }
 
@@ -63,14 +68,14 @@ public class TaskService {
                 if (newDueDate != null)
                     task.setDueDate(newDueDate);
 
+                System.out.println("Successfully updated the task.");
                 Database.update(task);
             } else {
                 System.out.println("Entity with ID=" + taskId + " is not an instance of Task.");
             }
-        } catch (EntityNotFoundException e) {
-            System.out.println("Task with ID=" + taskId + " not found.");
-        } catch (InvalidEntityException e) {
-            System.out.println("Task with ID=" + taskId + " is invalid.");
+        } catch (EntityNotFoundException | InvalidEntityException e) {
+            System.out.println("Cannot update task.");
+            System.out.println(e.getMessage());
         }
     }
 

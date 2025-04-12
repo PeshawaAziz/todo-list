@@ -59,9 +59,12 @@ public class Task extends Entity implements Trackable {
                 "Status: " + this.status + "\n" +
                 "Steps: \n";
 
-        for (Step step : TaskService.getSteps(this.id)) {
-            result += "\t+ " + step + "\n";
-        }
+        if (TaskService.getSteps(this.id).isEmpty())
+            result += "(No steps.)";
+        else
+            for (Step step : TaskService.getSteps(this.id)) {
+                result += "\t+ " + step + "\n";
+            }
 
         return result;
     }

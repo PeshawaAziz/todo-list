@@ -32,37 +32,40 @@ public class Main {
                             String title, description;
                             Date dueDate;
 
-                            System.out.println("Title: ");
+                            System.out.printf("Title: ");
                             title = in.nextLine();
 
-                            System.out.println("Description: ");
+                            System.out.printf("Description: ");
                             description = in.nextLine();
 
-                            System.out.println("Due date (yyyy-mm-dd): ");
+                            System.out.printf("Due date (yyyy-mm-dd): ");
+
                             try {
                                 dueDate = sdf.parse(in.nextLine());
 
-                                // TODO Exception Handling
-                                TaskService.saveTask(title, description, dueDate);
+                                int id = TaskService.saveTask(title, description, dueDate);
+
+                                System.out.println("Task saved successfully.");
+                                System.out.println("ID: " + id);
                             } catch (ParseException e) {
                                 System.out.println("Invalid date format.");
                             }
-
                         }
 
                         case "step" -> {
                             int taskId;
                             String title;
 
-                            System.out.println("Task ID: ");
+                            System.out.printf("Task ID: ");
                             taskId = in.nextInt();
-                            in.nextLine();
 
-                            System.out.println("Title: ");
+                            System.out.printf("Title: ");
                             title = in.nextLine();
 
-                            // TODO Exception Handling
-                            StepService.saveStep(taskId, title);
+                            int id = StepService.saveStep(taskId, title);
+
+                            System.out.println("Step saved successfully.");
+                            System.out.println("ID: " + id);
                         }
 
                         default -> {
@@ -74,11 +77,16 @@ public class Main {
                 case "delete" -> {
                     int id;
 
-                    System.out.println("ID: ");
+                    System.out.printf("ID: ");
                     id = in.nextInt();
 
-                    // TODO Exception Handling
-                    Database.delete(id);
+                    try {
+                        Database.delete(id);
+                        System.out.println("Entity deleted successfully.");
+                    } catch (EntityNotFoundException e) {
+                        System.out.println("Cannot delete entity.");
+                        System.out.println(e.getMessage());
+                    }
                 }
 
                 case "update" -> {
@@ -87,15 +95,16 @@ public class Main {
                             int taskId;
                             String field;
 
-                            System.out.println("ID: ");
+                            System.out.printf("ID: ");
                             taskId = in.nextInt();
+                            in.nextLine();
 
-                            System.out.println("Field (title, description, status, due-date): ");
+                            System.out.printf("Field (title, description, status, due-date): ");
                             field = in.nextLine();
 
                             switch (field) {
                                 case "title" -> {
-                                    System.out.println("New value: ");
+                                    System.out.printf("New value: ");
                                     String newTitle = in.nextLine();
 
                                     // TODO Exception Handling
@@ -103,7 +112,7 @@ public class Main {
                                 }
 
                                 case "description" -> {
-                                    System.out.println("New value: ");
+                                    System.out.printf("New value: ");
                                     String newDescription = in.nextLine();
 
                                     // TODO Exception Handling
@@ -111,7 +120,7 @@ public class Main {
                                 }
 
                                 case "status" -> {
-                                    System.out.println("New value (NotStarted, InProgress, Completed): ");
+                                    System.out.printf("New value (NotStarted, InProgress, Completed): ");
                                     String newStatus = in.nextLine();
 
                                     switch (newStatus) {
@@ -135,14 +144,15 @@ public class Main {
                                 }
 
                                 case "due-date" -> {
-                                    System.out.println("New value: ");
+                                    System.out.printf("New value: ");
                                     try {
                                         Date newDueDate = sdf.parse(in.nextLine());
 
                                         // TODO Exception Handling
                                         TaskService.updateDueDate(taskId, newDueDate);
                                     } catch (ParseException e) {
-                                        System.out.println("Invalid date format.");
+
+                                        System.out.println(e.getMessage());
                                     }
                                 }
 
@@ -156,18 +166,18 @@ public class Main {
                             int stepId;
                             String field;
 
-                            System.out.println("ID: ");
+                            System.out.printf("ID: ");
                             stepId = in.nextInt();
 
-                            System.out.println("Field (title, status): ");
+                            System.out.printf("Field (title, status): ");
                             field = in.nextLine();
 
-                            System.out.println("New value: ");
+                            System.out.printf("New value: ");
                             switch (field) {
                                 case "title" -> {
                                     String newTitle = in.nextLine();
+                                    System.out.println();
 
-                                    // TODO Exception Handling
                                     StepService.updateTitle(stepId, newTitle);
                                 }
 
@@ -206,27 +216,37 @@ public class Main {
                 case "get" -> {
                     switch (input[1]) {
                         case "task-by-id" -> {
-                            System.out.println("ID: ");
+                            System.out.printf("ID: ");
                             int taskId = in.nextInt();
 
                             try {
+                                System.out.println("__________________________");
                                 System.out.println(Database.get(taskId));
                             } catch (EntityNotFoundException e) {
-                                System.out.println("Task with ID=" + taskId + " not found.");
+                                System.out.println(e.getMessage());
                             }
                         }
 
                         case "all-tasks" -> {
-                            for (Entity entity : Database.getAll(Task.getCode())) {
-                                Task task = (Task) entity;
-                                System.out.println(task + "\n");
-                            }
+                            if (Database.getAll(Task.getCode()).isEmpty())
+                                System.out.println("(No tasks.)");
+                            else
+                                for (Entity entity : Database.getAll(Task.getCode())) {
+                                    Task task = (Task) entity;
+                                    System.out.println("__________________________");
+                                    System.out.println(task + "\n");
+                                }
                         }
 
                         case "incomplete-tasks" -> {
-                            for (Task task : TaskService.getIncompleteTasks()) {
-                                System.out.println(task + "\n");
-                            }
+                            if (TaskService.getIncompleteTasks().isEmpty())
+                                System.out.println("(No tasks.)");
+                            else
+                                for (Task task : TaskService.getIncompleteTasks()) {
+                                    System.out.println("__________________________");
+                                    System.out.println(task + "\n");
+                                }
+
                         }
 
                         default -> {

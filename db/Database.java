@@ -5,6 +5,7 @@ import db.exception.InvalidEntityException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import todo.entity.Step;
 import todo.entity.Task;
 
@@ -43,14 +44,14 @@ public class Database {
     }
 
     public static void delete(int id) {
-        int i = 0;
         boolean found = false;
-        for (Entity entity : entities) {
+        Iterator<Entity> iterator = entities.iterator();
+        while (iterator.hasNext()) {
+            Entity entity = iterator.next();
             if (entity.id == id || (entity instanceof Step step && step.getTaskRef() == id)) {
                 found = true;
-                entities.remove(i);
+                iterator.remove();
             }
-            i++;
         }
 
         if (found)
@@ -72,8 +73,8 @@ public class Database {
 
         int i = 0;
         for (Entity e : entities) {
-            if (e.id == e.id) {
-                entities.set(i, e.clone());
+            if (e.id == entity.id) {
+                entities.set(i, entity.clone());
                 return;
             }
             i++;
