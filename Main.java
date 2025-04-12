@@ -5,12 +5,18 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
+import todo.entity.Step;
 import todo.entity.Task;
 import todo.service.StepService;
 import todo.service.TaskService;
+import todo.validator.StepValidator;
+import todo.validator.TaskValidator;
 
 public class Main {
     public static void main(String[] args) {
+        Database.registerValidator(Task.getCode(), new TaskValidator());
+        Database.registerValidator(Step.getCode(), new StepValidator());
+
         Scanner in = new Scanner(System.in);
         String[] input;
 

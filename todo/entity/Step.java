@@ -37,8 +37,8 @@ public final class Step extends Entity {
     public String toString() {
 
         return this.title + ":\n" +
-                "\tID: " + this.id + "\n" +
-                "\tStatus: " + this.status + "\n";
+                "\t\tID: " + this.id + "\n" +
+                "\t\tStatus: " + this.status + "\n";
     }
 
     public String getTitle() {
