@@ -1,6 +1,11 @@
 import db.Database;
+import db.Entity;
+import db.exception.EntityNotFoundException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
+import todo.entity.Task;
 import todo.service.StepService;
 import todo.service.TaskService;
 
@@ -8,6 +13,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         String[] input;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         do {
             input = in.nextLine().split(" ");
@@ -17,8 +24,6 @@ public class Main {
                     switch (input[1]) {
                         case "task" -> {
                             String title, description;
-                            String[] timestamp;
-                            int year, month, day;
                             Date dueDate;
 
                             System.out.println("Title: ");
@@ -26,33 +31,36 @@ public class Main {
 
                             System.out.println("Description: ");
                             description = in.nextLine();
-                            timestamp = in.nextLine().split("-");
-                            year = Integer.parseInt(timestamp[0]);
-                            month = Integer.parseInt(timestamp[1]);
-                            day = Integer.parseInt(timestamp[2]);
 
                             System.out.println("Due date (yyyy-mm-dd): ");
-                            dueDate = new Date(year, month, day);
+                            try {
+                                dueDate = sdf.parse(in.nextLine());
 
-                            // TODO Exception Handling
-                            TaskService.saveTask(title, description, dueDate);
+                                // TODO Exception Handling
+                                TaskService.saveTask(title, description, dueDate);
+                            } catch (ParseException e) {
+                                System.out.println("Invalid date format.");
+                            }
+
                         }
 
                         case "step" -> {
-                            int taskId;
+                            int stepId;
                             String title;
 
-                            System.out.println("Task ID: ");
-                            taskId = in.nextInt();
+                            System.out.println("Step ID: ");
+                            stepId = in.nextInt();
 
                             System.out.println("Title: ");
                             title = in.nextLine();
 
                             // TODO Exception Handling
-                            StepService.saveStep(taskId, title);
+                            StepService.saveStep(stepId, title);
                         }
 
-                        default -> throw new AssertionError();
+                        default -> {
+                            System.out.println("Invalid input.");
+                        }
                     }
                 }
 
@@ -71,86 +79,6 @@ public class Main {
                         case "task" -> {
                             int taskId;
                             String field;
-                            int stepId;
-                            String field;
-
-                            System.out.println("ID: ");
-                            stepId = in.nextInt();
-
-                            System.out.println("Field (title, status): ");
-                            field = in.nextLine();
-
-                            System.out.println("New value: ");
-                            switch (field) {
-                                case "title" -> {
-                                    String newTitle = in.nextLine();
-
-                                    // TODO Exception Handling
-                                    StepService.updateTitle(stepId, newTitle);
-                                }
-
-                                case "status" -> {
-                                    System.out.println("New value (NotStarted, Completed): ");
-                                    String newStatus = in.nextLine();
-
-                                    switch (newStatus) {
-                                        case "NotStarted" -> {
-                                            StepService.setAsCompleted(stepId);
-                                        }
-
-                                        case "Completed" -> {
-                                            StepService.setAsCompleted(stepId);
-                                        }
-
-                                        default -> {
-                                            System.out.println("Invalid input.");
-                                        }
-                                    }
-
-                                }
-
-                                default -> {
-                                    System.out.println("Invalid input.");
-                            int stepId;
-                            String field;
-
-                            System.out.println("ID: ");
-                            stepId = in.nextInt();
-
-                            System.out.println("Field (title, status): ");
-                            field = in.nextLine();
-
-                            System.out.println("New value: ");
-                            switch (field) {
-                                case "title" -> {
-                                    String newTitle = in.nextLine();
-
-                                    // TODO Exception Handling
-                                    StepService.updateTitle(stepId, newTitle);
-                                }
-
-                                case "status" -> {
-                                    System.out.println("New value (NotStarted, Completed): ");
-                                    String newStatus = in.nextLine();
-
-                                    switch (newStatus) {
-                                        case "NotStarted" -> {
-                                            StepService.setAsCompleted(stepId);
-                                        }
-
-                                        case "Completed" -> {
-                                            StepService.setAsCompleted(stepId);
-                                        }
-
-                                        default -> {
-                                            System.out.println("Invalid input.");
-                                        }
-                                    }
-
-                                }
-
-                                default -> {
-                                    System.out.println("Invalid input.");
 
                             System.out.println("ID: ");
                             taskId = in.nextInt();
@@ -201,10 +129,14 @@ public class Main {
 
                                 case "due-date" -> {
                                     System.out.println("New value: ");
-                                    Date newDueDate = getDate(in.nextLine());
+                                    try {
+                                        Date newDueDate = sdf.parse(in.nextLine());
 
-                                    // TODO Exception Handling
-                                    TaskService.updateDueDate(taskId, newDueDate);
+                                        // TODO Exception Handling
+                                        TaskService.updateDueDate(taskId, newDueDate);
+                                    } catch (ParseException e) {
+                                        System.out.println("Invalid date format.");
+                                    }
                                 }
 
                                 default -> {

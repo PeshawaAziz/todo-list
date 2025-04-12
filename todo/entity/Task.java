@@ -2,6 +2,7 @@ package todo.entity;
 
 import db.Entity;
 import db.Trackable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import todo.service.TaskService;
 
@@ -15,6 +16,8 @@ public class Task extends Entity implements Trackable {
     private String title;
     private String description;
     private Status status;
+
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     public enum Status {
         NotStarted, InProgress, Completed
@@ -52,7 +55,7 @@ public class Task extends Entity implements Trackable {
     public String toString() {
         String result = "ID: " + this.id + "\n" +
                 "Title: " + this.title + "\n" +
-                "Due Date: " + this.dueDate + "\n" +
+                "Due Date: " + sdf.format(this.dueDate) + "\n" +
                 "Status: " + this.status + "\n" +
                 "Steps: \n";
 
