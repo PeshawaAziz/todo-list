@@ -74,6 +74,18 @@ public class TaskService {
         }
     }
 
+    public static ArrayList<Task> getIncompleteTasks() {
+        ArrayList<Task> taskList = new ArrayList<>();
+
+        for (Entity entity : Database.getAll(Task.getCode())) {
+            if (entity instanceof Task task)
+                if (task.getStatus() == Task.Status.NotStarted || task.getStatus() == Task.Status.InProgress)
+                    taskList.add(task.clone());
+        }
+
+        return taskList;
+    }
+
     public static ArrayList<Step> getSteps(int taskId) {
         ArrayList<Step> stepList = new ArrayList<>();
 
@@ -85,4 +97,5 @@ public class TaskService {
 
         return stepList;
     }
+
 }
