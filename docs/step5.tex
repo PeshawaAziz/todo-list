@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{xepersian}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage[margin=3.6cm]{geometry}
+
+\lstset{
+    tabsize = 4,
+    showstringspaces = false,
+    commentstyle = \color{green},
+    keywordstyle = \color{blue},
+    stringstyle = \color{red},
+    rulecolor = \color{black},
+    basicstyle = \small \ttfamily,
+    breaklines = true,
+}
+
+\settextfont{XB Yas}
+
+\title{\textbf{گزارش‌کار پروژۀ عید - برنامه‌سازی پیشرفته (جاوا)}\vspace{1cm}\\پاسخ سوالات قدم پنجم}
+\author{\textbf{پیشوا آزیز - \lr{40313003}}}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\vspace{2cm}
+
+\section*{پاسخ سوال ۱}
+در \lr{Java}، \lr{\lstinline{enum}} نوع خاصی از کلاس است که گروهی از ثابت‌ها را نگه‌داری می‌کند. برای تعریف \lr{\lstinline{enum}} از همین کلیدواژه استفاده می‌شود و ثابت‌ها با \lr{\lstinline{comma}} جدا می‌شوند. مثال:
+
+\begin{latin}
+\begin{lstlisting}[language=Java]
+enum CarType {
+    SEDAN,
+    COUPE,
+    SUV
+}
+\end{lstlisting}
+\end{latin}
+
+\section*{پاسخ سوال ۲}
+یکی از دلایل وجود \lr{getter} و \lr{setter} در کلاس‌های \lr{\lstinline{Task}} و \lr{\lstinline{Step}} و قرار دادن شرط‌های بررسی مقادیر ورودی در داخل آن‌ها می‌تواند به‌دلیل صحت‌سنجی و امنیت مقادیر گرفته‌شده باشد. اما با وجود \lr{\lstinline{Validator}}ها، شاید لزومی به داشتن \lr{getter} و \lr{setter} نباشد؛ اما امکان دارد مزایایی هم داشته باشد.
+
+\section*{پاسخ سوال ۳}
+وجود فیلدی با محتوای لیستی از \lr{\lstinline{Step}}ها در هر \lr{\lstinline{Task}}، می‌تواند علاوه‌بر افزایش پیچیدگی کد و ناخوانایی آن، باعث وجود \lr{\lstinline{Task}}هایی با مقدار فضای اشغالی متفاوت در حافظه شود. همچنین برای پیاده‌سازی \lr{Deep copy} باید منطق اضافی برای آن نیز قرار داد که به نوبۀ خود باعث افزایش پیچیدگی کد می‌شود.
+
+\section*{پاسخ سوال ۴}
+به‌طور کلی، جداسازی بخش‌های مختلف برنامه بر اساس مسئولیت آن‌ها، مانند تفکیک بخش مدیریت \lr{I/O} از منطق برنامه، دارای اهمیت بسیار و پیروی از آن باعث تولید کدی با کیفیت بهتر، خوانایی بیشتر، نگه‌داری و گسترش و توسعه‌پذیری راحت‌تر در آینده می‌شود.
+
+در صورتی که در آینده بخواهیم رابط کاربری برنامه را از محیط متنی (\lr{CLI}) به یک رابط گرافیکی (\lr{GUI}) تغییر دهیم، اگر منطق اصلی برنامه از ابتدا در کلاس جداگانه‌ای طراحی شده باشد، تنها لازم است نحوه‌ی دریافت ورودی و نمایش خروجی را تغییر دهیم، بدون آن‌که نیازی به بازنویسی منطق برنامه باشد. این امر باعث صرفه‌جویی در زمان توسعه و کاهش خطاها و باگ‌های احتمالی خواهد شد.
+
+\end{document}
