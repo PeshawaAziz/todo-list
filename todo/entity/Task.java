@@ -36,6 +36,11 @@ public class Task extends Entity implements Trackable {
     public Task clone() {
         Task cloned = (Task) super.clone();
 
+        cloned.creationDate = (Date) (this.creationDate != null ? this.creationDate.clone() : null);
+        cloned.lastModificationDate = (Date) (this.lastModificationDate != null ? this.lastModificationDate.clone()
+                : null);
+        cloned.dueDate = (Date) (this.dueDate != null ? this.dueDate.clone() : null);
+
         return cloned;
     }
 

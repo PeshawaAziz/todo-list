@@ -19,6 +19,11 @@ public final class Step extends Entity {
         setTaskRef(taskRef);
     }
 
+    @Override
+    public Step clone() {
+        return (Step) super.clone();
+    }
+
     public String getTitle() {
         return title;
     }
