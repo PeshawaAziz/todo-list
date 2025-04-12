@@ -3,7 +3,7 @@ package todo.entity;
 import db.Entity;
 
 public final class Step extends Entity {
-    private static final int STEP_ENTITY_CODE = 0;
+    private static final int STEP_ENTITY_CODE = 1;
 
     private String title;
     private Status status;
