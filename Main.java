@@ -267,16 +267,38 @@ public class Main {
                 case "get" -> {
                     switch (input[1]) {
                         case "task-by-id" -> {
+                            System.out.println("ID: ");
+                            int taskId = in.nextInt();
+
+                            try {
+                                System.out.println(Database.get(taskId));
+                            } catch (EntityNotFoundException e) {
+                                System.out.println("Task with ID=" + taskId + " not found.");
+                            }
                         }
+
                         case "all-tasks" -> {
+                            for (Entity entity : Database.getAll(Task.getCode())) {
+                                Task task = (Task) entity;
+                                System.out.println(task + "\n");
+                            }
                         }
+
                         case "incomplete-tasks" -> {
+                            for (Task task : TaskService.getIncompleteTasks()) {
+                                System.out.println(task + "\n");
+                            }
                         }
-                        default -> throw new AssertionError();
+
+                        default -> {
+                            System.out.println("Invalid input.");
+                        }
                     }
                 }
 
-                default -> throw new AssertionError();
+                default -> {
+                    System.out.println("Invalid input.");
+                }
             }
         } while (!input[0].equals("exit"));
     }

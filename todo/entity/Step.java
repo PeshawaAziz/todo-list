@@ -35,8 +35,10 @@ public final class Step extends Entity {
 
     @Override
     public String toString() {
-        return "ID: " + this.id + "\n" +
-                "Status: " + this.status + "\n";
+
+        return this.title + ":\n" +
+                "\tID: " + this.id + "\n" +
+                "\tStatus: " + this.status + "\n";
     }
 
     public String getTitle() {
