@@ -50,6 +50,7 @@ public class Main {
 
                             System.out.println("Task ID: ");
                             taskId = in.nextInt();
+                            in.nextLine();
 
                             System.out.println("Title: ");
                             title = in.nextLine();
