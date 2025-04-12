@@ -3,7 +3,7 @@ package todo.entity;
 import db.Entity;
 
 public final class Step extends Entity {
-    private static final int STEP_ENTITY_CODE = 0;
+    private static final int STEP_ENTITY_CODE = 1;
 
     private String title;
     private Status status;
@@ -13,10 +13,32 @@ public final class Step extends Entity {
         NotStarted, Completed
     }
 
-    public Step(String title, Status status, int taskRef) {
+    public Step(String title, int taskRef) {
         setTitle(title);
-        setStatus(status);
+        setStatus(Status.NotStarted);
         setTaskRef(taskRef);
+    }
+
+    @Override
+    public int getEntityCode() {
+        return STEP_ENTITY_CODE;
+    }
+
+    public static int getCode() {
+        return STEP_ENTITY_CODE;
+    }
+
+    @Override
+    public Step clone() {
+        return (Step) super.clone();
+    }
+
+    @Override
+    public String toString() {
+
+        return this.title + ":\n" +
+                "\t\tID: " + this.id + "\n" +
+                "\t\tStatus: " + this.status + "\n";
     }
 
     public String getTitle() {
@@ -49,8 +71,4 @@ public final class Step extends Entity {
             this.taskRef = taskRef;
     }
 
-    @Override
-    public int getEntityCode() {
-        return STEP_ENTITY_CODE;
-    }
 }

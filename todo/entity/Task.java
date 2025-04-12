@@ -2,28 +2,31 @@ package todo.entity;
 
 import db.Entity;
 import db.Trackable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import todo.service.TaskService;
 
 public class Task extends Entity implements Trackable {
     private static final int TASK_ENTITY_CODE = 0;
 
     private Date creationDate;
     private Date lastModificationDate;
-    // TODO make dueDate public (think more man)
     private Date dueDate;
 
     private String title;
     private String description;
     private Status status;
 
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
     public enum Status {
         NotStarted, InProgress, Completed
     }
 
-    public Task(String title, String description, Status status, Date dueDate) {
+    public Task(String title, String description, Date dueDate) {
         setTitle(title);
         setDescription(description);
-        setStatus(status);
+        setStatus(Status.NotStarted);
         setDueDate(dueDate);
     }
 
@@ -32,11 +35,38 @@ public class Task extends Entity implements Trackable {
         return TASK_ENTITY_CODE;
     }
 
+    public static int getCode() {
+        return TASK_ENTITY_CODE;
+    }
+
     @Override
     public Task clone() {
         Task cloned = (Task) super.clone();
 
+        cloned.creationDate = (Date) (this.creationDate != null ? this.creationDate.clone() : null);
+        cloned.lastModificationDate = (Date) (this.lastModificationDate != null ? this.lastModificationDate.clone()
+                : null);
+        cloned.dueDate = (Date) (this.dueDate != null ? this.dueDate.clone() : null);
+
         return cloned;
+    }
+
+    @Override
+    public String toString() {
+        String result = "ID: " + this.id + "\n" +
+                "Title: " + this.title + "\n" +
+                "Due Date: " + sdf.format(this.dueDate) + "\n" +
+                "Status: " + this.status + "\n" +
+                "Steps: \n";
+
+        if (TaskService.getSteps(this.id).isEmpty())
+            result += "(No steps.)";
+        else
+            for (Step step : TaskService.getSteps(this.id)) {
+                result += "\t+ " + step + "\n";
+            }
+
+        return result;
     }
 
     public String getTitle() {

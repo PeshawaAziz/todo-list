@@ -5,6 +5,9 @@ import db.exception.InvalidEntityException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import todo.entity.Step;
+import todo.entity.Task;
 
 public class Database {
     private static ArrayList<Entity> entities = new ArrayList<>();
@@ -36,19 +39,25 @@ public class Database {
             if (entity.id == id)
                 return entity.clone();
         }
+
         throw new EntityNotFoundException(id);
     }
 
     public static void delete(int id) {
-        int i = 0;
-        for (Entity entity : entities) {
-            if (entity.id == id) {
-                entities.remove(i);
-                return;
+        boolean found = false;
+        Iterator<Entity> iterator = entities.iterator();
+        while (iterator.hasNext()) {
+            Entity entity = iterator.next();
+            if (entity.id == id || (entity instanceof Step step && step.getTaskRef() == id)) {
+                found = true;
+                iterator.remove();
             }
-            i++;
         }
-        throw new EntityNotFoundException(id);
+
+        if (found)
+            ;
+        else
+            throw new EntityNotFoundException(id);
     }
 
     public static void update(Entity entity) throws InvalidEntityException {
@@ -59,19 +68,18 @@ public class Database {
             System.out.println("No validator has been registered for class: " + entity.getClass().getName());
         }
 
-        if (entity instanceof Trackable trackable) {
-
+        if (entity instanceof Trackable trackable)
             trackable.setLastModificationDate(new Date());
-        }
 
         int i = 0;
         for (Entity e : entities) {
-            if (e.id == e.id) {
-                entities.set(i, e.clone());
+            if (e.id == entity.id) {
+                entities.set(i, entity.clone());
                 return;
             }
             i++;
         }
+
         throw new EntityNotFoundException(entity.id);
     }
 
@@ -89,6 +97,14 @@ public class Database {
             if (entity.getEntityCode() == entityCode) {
                 entityList.add(entity.clone());
             }
+        }
+
+        if (entityCode == Task.getCode()) {
+            entityList.sort((e1, e2) -> {
+                Task t1 = (Task) e1;
+                Task t2 = (Task) e2;
+                return t1.getDueDate().compareTo(t2.getDueDate());
+            });
         }
 
         return entityList;
