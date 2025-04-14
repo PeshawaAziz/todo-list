@@ -13,8 +13,8 @@ A basic Todo List app that uses a database to store **tasks** and **steps**, wit
 1. Initial database design
 2. Copying entity objects
 3. Adding validators
-4. Adding timestamps (created/updated)
-5. Building the Todo list feature
+4. Adding timestamps support
+5. Building the todo list feature
 
 </details>
 
